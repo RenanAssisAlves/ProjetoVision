@@ -10,7 +10,7 @@ function listarVozes() {
         else return +1;
     });
 }
-//teste
+
 listarVozes();
 
 function carregarCamera(){
@@ -21,7 +21,7 @@ function carregarCamera(){
 	imagem.setAttribute('playsinline', '');
 
     if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'user'}})
+        navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'environment'}})
         .then(function(stream) {
             imagem.srcObject = stream;
         })
