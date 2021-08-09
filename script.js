@@ -10,7 +10,7 @@ function listarVozes() {
         else return +1;
     });
 }
-
+//teste
 listarVozes();
 
 function carregarCamera(){
