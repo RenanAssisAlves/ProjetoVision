@@ -1,77 +1,137 @@
-function loadCamera(){
-	//Captura elemento de vídeo
-	var video = document.querySelector("#webCamera");
-		//As opções abaixo são necessárias para o funcionamento correto no iOS
-		video.setAttribute('autoplay', '');
-	    video.setAttribute('muted', '');
-	    video.setAttribute('playsinline', '');
-	    //--
-	
-	//Verifica se o navegador pode capturar mídia
-	if (navigator.mediaDevices.getUserMedia) {
-		navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'user'}})
-		.then( function(stream) {
-			//Definir o elemento víde a carregar o capturado pela webcam
-			video.srcObject = stream;
-		})
-		.catch(function(error) {
-			alert("Oooopps... Falhou :'(");
-		});
-	}
+var synth = window.speechSynthesis;
+
+var vozes = [];
+
+function listarVozes() {
+    vozes = synth.getVoices().sort(function (a, b) {
+        const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
+        if ( aname < bname ) return -1;
+        else if ( aname == bname ) return 0;
+        else return +1;
+    });
 }
 
-function takeSnapShot(){
-	//Captura elemento de vídeo
-	var video = document.querySelector("#webCamera");
-	
-	//Criando um canvas que vai guardar a imagem temporariamente
-	var canvas = document.createElement('canvas');
-	canvas.width = video.videoWidth;
-	canvas.height = video.videoHeight;
-	var ctx = canvas.getContext('2d');
-	
-	//Desnehando e convertendo as minensões
-	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-	
-	//Criando o JPG
-	var dataURI = canvas.toDataURL('image/jpeg'); //O resultado é um BASE64 de uma imagem.
-	document.querySelector("#base_img").value = dataURI;
-	
-	sendSnapShot(dataURI); //Gerar Imagem e Salvar Caminho no Banco
+listarVozes();
+
+function carregarCamera(){
+    var imagem = document.querySelector("#camera");
+
+    imagem.setAttribute('autoplay', '');
+	imagem.setAttribute('muted', '');
+	imagem.setAttribute('playsinline', '');
+
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'user'}})
+        .then(function(stream) {
+            imagem.srcObject = stream;
+        })
+        .catch(function(error){
+            alert("Erro ao encontrar camera")
+        });
+    }
+    
 }
 
-function sendSnapShot(base64){	
-	var request = new XMLHttpRequest();
-		request.open('POST', 'save_photos.php', true);
-		request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-		
-		request.onload = function() {
-			console.log(request);
-			if (request.status >= 200 && request.status < 400) {
-				//Colocar o caminho da imagem no SRC
-				var data = JSON.parse(request.responseText);
-				
-				//verificar se houve erro
-				if(data.error){
-					alert(data.error);
-					return false;
-				}
-				
-				//Mostrar informações
-				document.querySelector("#imagemConvertida").setAttribute("src", data.img);
-				document.querySelector("#caminhoImagem a").setAttribute("href", data.img);
-				document.querySelector("#caminhoImagem a").innerHTML = data.img.split("/")[1];
-			} else {
-				alert( "Erro ao salvar. Tipo:" + request.status );
-			}
-		};
-		
-		request.onerror = function() {
-		 	alert("Erro ao salvar. Back-End inacessível.");
-		}
-		
-		request.send("base_img="+base64); // Enviar dados
+function tirarFoto(){
+    
+    var imagem = document.querySelector("#camera");
+
+    var exibicao = document.createElement('canvas');
+    exibicao.width = imagem.videoWidth;
+    exibicao.height = imagem.videoHeight;
+
+    var contexto = exibicao.getContext('2d');
+
+    contexto.drawImage(imagem, 0, 0, exibicao.width, exibicao.height);
+
+    var dataURI = exibicao.toDataURL('image/jpeg');
+    //alert(dataURI);
+    enviarFoto(dataURI);
 }
 
+function enviarFoto(base64){
+    var imagem = base64;
+    var base64ImageContent = imagem.replace("data:image/jpeg;base64,", "");
 
-loadCamera();
+    var request = new XMLHttpRequest();
+    var url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA6vfbOn2v66Mo4HraUNKyBCJbBV9jDcBA';
+	request.open("POST", url, true);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            var json = JSON.parse(request.responseText);
+            //console.log(json)
+            objetos = json.responses[0].localizedObjectAnnotations;
+            processarObjetos(objetos);
+        }
+    };
+    var data = JSON.stringify({"requests":[{"image":{"content": "" + base64ImageContent + ""},"features":[{"type":"OBJECT_LOCALIZATION","maxResults":10}]}]});
+    request.send(data);
+}
+
+function processarObjetos(Array) {
+    var objetos = Array;
+    const nomes = [];
+    for (var i = 0; i < objetos.length; i++)
+            {
+                console.log(objetos[i].name);
+                console.log(objetos[i].score);
+                nomes.push(objetos[i].name);
+            }
+            console.log(nomes);
+            traduzir(nomes);
+}
+
+function traduzir(Array) {
+    var request = new XMLHttpRequest();
+    var url = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyA6vfbOn2v66Mo4HraUNKyBCJbBV9jDcBA';
+	request.open("POST", url, true);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            var json = JSON.parse(request.responseText);
+            //console.log(json.data.translations)
+            speak(json.data.translations);
+        }
+    };
+    var data = JSON.stringify({"q": Array, "source":"en","target":"pt"});
+    request.send(data);
+}
+
+function speak(Array){
+    if (synth.speaking) {
+        console.error('speechSynthesis.speaking');
+        return;
+    }
+
+    var texto = "";
+    for (let i = 0; i < Array.length; i++) {
+        texto += " " + Array[i].translatedText;
+    }
+    if (texto !== '') {
+        var textoAFalar = new SpeechSynthesisUtterance(texto);
+
+        for(i = 0; i < vozes.length ; i++) {
+          if(vozes[i].name === "Microsoft Daniel - Portuguese (Brazil)") {
+            textoAFalar.voice = vozes[i];
+            break;
+          }
+        }
+        textoAFalar.pitch = 1;
+        textoAFalar.rate = 1;
+        synth.speak(textoAFalar);
+  }
+}
+
+carregarCamera();
+
+var i = 1;
+
+function myLoop() {
+  setTimeout(function() {
+    tirarFoto();
+    myLoop();
+  }, 7000)
+}
+
+myLoop(); 
