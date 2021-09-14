@@ -29,11 +29,9 @@ function carregarCamera(){
             alert("Erro ao encontrar camera")
         });
     }
-    
 }
 
 function tirarFoto(){
-    
     var imagem = document.querySelector("#camera");
 
     var exibicao = document.createElement('canvas');
@@ -71,11 +69,13 @@ function enviarFoto(base64){
 
 function processarObjetos(Array) {
     var objetos = Array;
+    
     const nomes = [];
     for (var i = 0; i < objetos.length; i++)
             {
-                console.log(objetos[i].name);
-                console.log(objetos[i].score);
+                // console.log(objetos[i].name);
+                // console.log(objetos[i].score);
+                console.log(objetos[i]);
                 nomes.push(objetos[i].name);
             }
             console.log(nomes);
@@ -90,24 +90,35 @@ function traduzir(Array) {
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
             var json = JSON.parse(request.responseText);
-            //console.log(json.data.translations)
-            speak(json.data.translations);
+            ajustarTraducoes(json.data.translations);
+            console.log(json.data.translations);
         }
     };
     var data = JSON.stringify({"q": Array, "source":"en","target":"pt"});
     request.send(data);
 }
 
-function speak(Array){
+function ajustarTraducoes(Array) {
+    traducoes = " ";
+
+    for (let i = 0; i < Array.length; i++) {
+        traducoes += " " + Array[i].translatedText;
+    }
+
+    traducoes = traducoes.replace("Principal", "Camiseta");
+    traducoes = traducoes.replace("Tampo da mesa", "Mesa");
+    traducoes = traducoes.replace("Confecções", "Roupas");
+    console.log(traducoes);
+    falar(traducoes);
+}
+
+function falar(String){
     if (synth.speaking) {
         console.error('speechSynthesis.speaking');
         return;
     }
 
-    var texto = "";
-    for (let i = 0; i < Array.length; i++) {
-        texto += " " + Array[i].translatedText;
-    }
+    texto = String;
     if (texto !== '') {
         var textoAFalar = new SpeechSynthesisUtterance(texto);
 
@@ -125,13 +136,11 @@ function speak(Array){
 
 carregarCamera();
 
-var i = 1;
-
-function myLoop() {
+function looping() {
   setTimeout(function() {
     tirarFoto();
-    myLoop();
+    looping();
   }, 7000)
 }
 
-myLoop(); 
+looping(); 
