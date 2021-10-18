@@ -20,8 +20,8 @@ function carregarCamera(){
 	imagem.setAttribute('muted', '');
 	imagem.setAttribute('playsinline', '');
     
-    imagem.setAttribute('height', screen.height);
-    imagem.setAttribute('width', screen.width);
+    // imagem.setAttribute('height', screen.height);
+    // imagem.setAttribute('width', screen.width);
 
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'environment'}})
