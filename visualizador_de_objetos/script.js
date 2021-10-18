@@ -12,16 +12,15 @@ function listarVozes() {
 }
 
 listarVozes();
-
+var imagem = document.querySelector("#camera");
 function carregarCamera(){
-    var imagem = document.querySelector("#camera");
+    
 
     imagem.setAttribute('autoplay', '');
 	imagem.setAttribute('muted', '');
 	imagem.setAttribute('playsinline', '');
     
-    imagem.setAttribute('height', screen.height);
-    imagem.setAttribute('width', screen.width);
+    
 
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'environment'}})
@@ -142,6 +141,8 @@ carregarCamera();
 function looping() {
   setTimeout(function() {
     tirarFoto();
+    imagem.setAttribute('height', screen.height);
+    imagem.setAttribute('width', screen.width);
     looping();
   }, 7000)
 }
