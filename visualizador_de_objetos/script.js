@@ -19,6 +19,9 @@ function carregarCamera(){
     imagem.setAttribute('autoplay', '');
 	imagem.setAttribute('muted', '');
 	imagem.setAttribute('playsinline', '');
+    
+    imagem.setAttribute('height', screen.height);
+    imagem.setAttribute('width', screen.width);
 
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'environment'}})
@@ -75,10 +78,10 @@ function processarObjetos(Array) {
             {
                 // console.log(objetos[i].name);
                 // console.log(objetos[i].score);
-                console.log(objetos[i]);
+                // console.log(objetos[i]);
                 nomes.push(objetos[i].name);
             }
-            console.log(nomes);
+            // console.log(nomes);
             traduzir(nomes);
 }
 
@@ -91,7 +94,7 @@ function traduzir(Array) {
         if (request.readyState === 4 && request.status === 200) {
             var json = JSON.parse(request.responseText);
             ajustarTraducoes(json.data.translations);
-            console.log(json.data.translations);
+            console.log(json);
         }
     };
     var data = JSON.stringify({"q": Array, "source":"en","target":"pt"});
@@ -108,7 +111,7 @@ function ajustarTraducoes(Array) {
     traducoes = traducoes.replace("Principal", "Camiseta");
     traducoes = traducoes.replace("Tampo da mesa", "Mesa");
     traducoes = traducoes.replace("Confecções", "Roupas");
-    console.log(traducoes);
+
     falar(traducoes);
 }
 
