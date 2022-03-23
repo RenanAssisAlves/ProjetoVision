@@ -16,6 +16,6 @@ narração por voz dos objetos detectados pela API de reconhecimento de objetos 
 
 - Suporte de realidade aumentada para que o celular fique fixo no rosto e facilite a utilização em movimento
 
-![Application sugestion](docs/imagem_funcionamento.png)
+![Application sugestion](docs/imagem_suporte.png)
 
 
