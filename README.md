@@ -5,6 +5,9 @@
 Website com o propósito de ser acessado via aparelho celular com a finalidade de ser uma ferramenta mais acessível para auxíliar deficientes visuais a ter um melhor reconhecimento do ambiente ao seu redor, através da 
 narração por voz dos objetos detectados pela API de reconhecimento de objetos do Google Cloud Vision na foto tirada periodicamente pela câmera frontal do celular.
 
+Vídeo de testes realizados por deficientes visuais
+https://youtu.be/kjeXs4eA6LU
+
 ## Tecnologias implementadas
 
 - Javascript
