@@ -17,7 +17,7 @@ https://youtu.be/kjeXs4eA6LU
 
 ## Sugestão de utilização para melhor experiência
 
-- Suporte de realidade aumentada para que o celular fique fixo no rosto e facilite a utilização em movimento
+- Suporte para celular de realidade aumentada para que o aparelho fique fixo no rosto e facilite a utilização em movimento
 
 ![Application sugestion](docs/imagem_suporte.png)
 
