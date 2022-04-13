@@ -1,23 +1,23 @@
 ![Application Preview](docs/imagem_funcionamento.png)
 
-# Projeto Vision
+# "Projeto Vision"
+Cost-effective acessibility cell phone website to help blind people to have a better 
+understanding of objects present in their environment through voice 
+guidance of object names recognized in real time front camera photo 
+with Google Cloud Vision object recognition API.
 
-Website com o propósito de ser acessado via aparelho celular com a finalidade de ser uma ferramenta mais acessível para auxíliar deficientes visuais a ter um melhor reconhecimento do ambiente ao seu redor, através da 
-narração por voz dos objetos detectados pela API de reconhecimento de objetos do Google Cloud Vision na foto tirada periodicamente pela câmera frontal do celular.
-
-Vídeo de testes do projeto realizados em deficientes visuais
+Video of tests made in real scenario:
 https://youtu.be/kjeXs4eA6LU
 
-## Tecnologias implementadas
+## Tecnologies
 
 - Javascript
-- Integração com a API Google Cloud Vision
-- Integração com a API do Google Cloud Translation para tradução da resposta da API Cloud Vision
+- API Google Cloud Vision
+- API Google Cloud Translation for translating the Google Cloud Vision return to portuguese
 
 
-## Sugestão de utilização para melhor experiência
-
-- Suporte para celular de realidade aumentada para que o aparelho fique fixo no rosto e facilite a utilização em movimento
+## Suggestion for better user experience
+- Cellphone virtual reality headset to hold the mobile device in face and facilitate the use while user is moving through internal environment
 
 ![Application sugestion](docs/imagem_suporte.png)
 
