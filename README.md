@@ -9,7 +9,7 @@ with Google Cloud Vision object recognition API.
 
 [Video of tests made in real scenario](https://youtu.be/kjeXs4eA6LU)
 
-[Test the project!](https://www.google.com "Projeto Vision")
+[Test the project!](https://renanassisalves.github.io/projeto-vision/ "Projeto Vision")
 
 ## Tecnologies
 
