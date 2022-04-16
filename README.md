@@ -6,8 +6,10 @@ understanding of objects present in their environment through voice
 guidance of object names recognized in real time front camera photo 
 with Google Cloud Vision object recognition API.
 
-Video of tests made in real scenario:
+
 https://youtu.be/kjeXs4eA6LU
+[Video of tests made in real scenario](https://youtu.be/kjeXs4eA6LU)
+[Test the project!](https://www.google.com "Projeto Vision")
 
 ## Tecnologies
 
@@ -20,5 +22,8 @@ https://youtu.be/kjeXs4eA6LU
 - Cellphone virtual reality headset to hold the mobile device in face and facilitate the use while user is moving through internal environment
 
 ![Application sugestion](docs/imagem_suporte.png)
+
+
+
 
 
