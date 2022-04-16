@@ -19,9 +19,6 @@ function carregarCamera(){
     imagem.setAttribute('autoplay', '');
 	imagem.setAttribute('muted', '');
 	imagem.setAttribute('playsinline', '');
-    
-    // imagem.setAttribute('height', screen.height);
-    // imagem.setAttribute('width', screen.width);
 
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: 'environment'}})
@@ -55,7 +52,7 @@ function enviarFoto(base64){
     var base64ImageContent = imagem.replace("data:image/jpeg;base64,", "");
 
     var request = new XMLHttpRequest();
-    var url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA6vfbOn2v66Mo4HraUNKyBCJbBV9jDcBA';
+    var url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBLXRMklULdz-V5dlOr5BBYJp6kpVkcSnA';
 	request.open("POST", url, true);
     request.setRequestHeader("Content-Type", "application/json");
     request.onreadystatechange = function () {
@@ -87,7 +84,7 @@ function processarObjetos(Array) {
 
 function traduzir(Array) {
     var request = new XMLHttpRequest();
-    var url = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyA6vfbOn2v66Mo4HraUNKyBCJbBV9jDcBA';
+    var url = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyBLXRMklULdz-V5dlOr5BBYJp6kpVkcSnA';
 	request.open("POST", url, true);
     request.setRequestHeader("Content-Type", "application/json");
     request.onreadystatechange = function () {
