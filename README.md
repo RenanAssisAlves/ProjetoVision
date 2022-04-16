@@ -7,8 +7,8 @@ guidance of object names recognized in real time front camera photo
 with Google Cloud Vision object recognition API.
 
 
-https://youtu.be/kjeXs4eA6LU
 [Video of tests made in real scenario](https://youtu.be/kjeXs4eA6LU)
+
 [Test the project!](https://www.google.com "Projeto Vision")
 
 ## Tecnologies
