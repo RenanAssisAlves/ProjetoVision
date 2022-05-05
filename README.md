@@ -15,7 +15,7 @@ with Google Cloud Vision object recognition API.
 
 - Javascript
 - Google Cloud Vision API
-- Google Cloud Translation API for translating the Google Cloud Vision object names in response to portuguese
+- Google Cloud Translation API for translating object names to portuguese
 
 
 ## Suggestion for better user experience
